@@ -6,7 +6,7 @@ compatibility_date = "2024-01-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "ondolog-db"
-database_id = "<your-database-id>"
+database_id = "563b6209-ed38-45b0-a91d-046de01e2963"
 
 # R2 Storage (if needed)
 # [[r2_buckets]]

@@ -1,7 +1,7 @@
 /// アプリ全体で使用する定数定義
 class AppConstants {
   // API設定
-  static const String apiBaseUrl = 'https://ondolog-api.YOUR-WORKER.workers.dev';
+  static const String apiBaseUrl = 'https://ondolog-api.m-kobayashi-v.workers.dev';
 
   // プラン制限
   static const int freeMaxLocations = 1;
