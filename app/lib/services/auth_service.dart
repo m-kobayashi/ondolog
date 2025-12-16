@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 import 'api_service.dart';
 import '../models/user.dart';
 
 class AuthService {
   final firebase_auth.FirebaseAuth _firebaseAuth = firebase_auth.FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // final GoogleSignIn _googleSignIn = GoogleSignIn();
   final ApiService _apiService = ApiService();
 
   // 現在のFirebaseユーザー
@@ -72,7 +72,12 @@ class AuthService {
   }
 
   // Googleログイン
+  /// 注: MVP段階では一時的に無効化しています
   Future<User?> signInWithGoogle() async {
+    throw Exception('Google Sign In は現在利用できません。メール/パスワードでログインしてください。');
+
+    // TODO: Android/iOS向けに Google Sign In を有効化する場合は以下のコメントを外す
+    /*
     try {
       // Google Sign In
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -110,6 +115,7 @@ class AuthService {
       print('Google sign in error: $e');
       rethrow;
     }
+    */
   }
 
   // バックエンドからユーザー情報取得
@@ -128,10 +134,9 @@ class AuthService {
 
   // ログアウト
   Future<void> signOut() async {
-    await Future.wait([
-      _firebaseAuth.signOut(),
-      _googleSignIn.signOut(),
-    ]);
+    await _firebaseAuth.signOut();
+    // TODO: Google Sign In 有効化時は以下も追加
+    // await _googleSignIn.signOut();
   }
 
   // パスワードリセット
