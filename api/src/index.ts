@@ -2,6 +2,9 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import auth from './routes/auth';
 import users from './routes/users';
+import locations from './routes/locations';
+import checkpoints from './routes/checkpoints';
+import records from './routes/records';
 
 type Bindings = {
   DB: D1Database;
@@ -30,10 +33,8 @@ app.get('/api/health', (c) => c.json({
 // ルーティング
 app.route('/api/auth', auth);
 app.route('/api/users', users);
-
-// TODO: 以下のルートを追加予定
-// app.route('/api/locations', locations);
-// app.route('/api/checkpoints', checkpoints);
-// app.route('/api/records', records);
+app.route('/api/locations', locations);
+app.route('/api/checkpoints', checkpoints);
+app.route('/api/records', records);
 
 export default app;

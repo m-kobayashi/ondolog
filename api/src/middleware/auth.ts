@@ -172,12 +172,24 @@ export async function authMiddleware(c: Context, next: Next) {
     c.set('userEmail', decodedToken.email);
     c.set('decodedToken', decodedToken);
 
+    // データベースからユーザーIDを取得
+    const user = await c.env.DB.prepare(
+      'SELECT id FROM users WHERE firebase_uid = ?'
+    ).bind(decodedToken.uid).first();
+
+    if (user) {
+      c.set('userId', user.id as string);
+    }
+
     await next();
   } catch (error) {
     console.error('認証エラー:', error);
     return serverError(c, '認証処理中にエラーが発生しました');
   }
 }
+
+// エイリアス
+export const verifyAuth = authMiddleware;
 
 /**
  * オプショナル認証ミドルウェア
